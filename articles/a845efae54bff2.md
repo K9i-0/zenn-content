@@ -1,6 +1,6 @@
 ---
 title: "AndroidのDebug用keystoreを共有する"
-emoji: "🦔"
+emoji: "🐙"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["android", "Flutter"]
 published: false
