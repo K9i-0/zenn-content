@@ -3,7 +3,7 @@ title: "Flutterアプリからブラウザアプリを開く"
 emoji: "🐙"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Flutter"]
-published: false
+published: true
 ---
 # はじめに
 FlutterアプリでChromeやFirefoxなどのブラウザアプリを指定してURLを開く方法です。
