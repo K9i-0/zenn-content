@@ -10,7 +10,7 @@ FlutterアプリでChromeやFirefoxなどのブラウザアプリを指定して
 ※ Android、iOSにしか対応していません。
 
 # パッケージのインストール
-pubspec.yaml ファイルに text_style_preview を追加し、flutter pub get
+pubspec.yaml ファイルに android_intent_plus, url_launcher を追加し、flutter pub get
 ```yaml
 dependencies:
   android_intent_plus: <任意のバージョン>
