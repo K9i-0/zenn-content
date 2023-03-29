@@ -1,3 +1,3 @@
-# Zenn CLI
+Zennの記事置き場です。
 
-* [📘 How to use](https://zenn.dev/zenn/articles/zenn-cli-guide)
+執筆->公開にラグがあることがあるので、未公開記事が見えたりします。
