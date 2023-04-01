@@ -124,3 +124,6 @@ void main(List<String> args) {
 
 ## まとめ
 Grinderタスクを複数プロジェクトで共有する方法でした。
+
+サンプルで紹介したパッケージのリポジトリです。参考にどうぞ🚀
+https://github.com/K9i-0/k9i_cli
