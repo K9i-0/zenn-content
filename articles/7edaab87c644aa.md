@@ -3,7 +3,7 @@ title: "Grinderタスクを複数プロジェクトで共有する方法"
 emoji: "🐙"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["flutter", "dart", "grinder"]
-published: false
+published: true
 ---
 ## はじめに
 GrinderはDart言語で作成されたタスクをターミナルやCIで実行できる便利なパッケージです。Flutterプロジェクトにコマンドを簡単に紐付けることができ、多くの開発者に支持されています。
