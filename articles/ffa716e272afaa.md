@@ -3,7 +3,7 @@ title: "Flutterパッケージの更新に役立つTips"
 emoji: "🐙"
 type: "idea" # tech: 技術記事 / idea: アイデア
 topics: ["flutter", "dart"]
-published: false
+published: true
 ---
 Flutterやpubのパッケージを更新する際に便利なTipsをまとめました。
 
