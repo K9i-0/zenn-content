@@ -1,0 +1,138 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Zenn CLI使い方（Cursor執筆用）
+
+このルールは常に適用され、Zenn CLIの使い方とCursorでの執筆ワークフローを提供します。
+
+## 記事作成ワークフロー
+
+### 1. 新しい記事の作成
+```bash
+# 新しい記事を作成（ターミナルから実行）
+npm run new:article
+# または
+npx zenn new:article
+```
+
+### 2. 記事の編集
+- 生成された`articles/xxx.md`ファイルをCursorで開く
+- `zenn-articles`ルールが自動的に適用される
+- フロントマターとMarkdown記法に従って執筆
+
+### 3. プレビュー確認
+```bash
+# ローカルでプレビュー表示
+npm run preview
+# または
+npx zenn preview
+```
+- ブラウザで http://localhost:8000 にアクセス
+- リアルタイムでプレビューが更新される
+
+### 4. 記事の管理
+```bash
+# 全記事の一覧表示
+npx zenn list:articles
+
+# 本の一覧表示（将来的に使用）
+npx zenn list:books
+```
+
+## Cursor執筆Tips
+
+### 便利なコマンド
+- **Cmd+Shift+P** → "New Cursor Rule"で新しいルール作成
+- **@zenn-articles**で記事作成ルールを明示的に参照
+- **@zenn-cli-commands**でこのCLIルールを参照
+- **Cmd+K**でインライン編集によるMarkdown整形
+
+### 推奨ワークフロー
+1. `npm run new:article`で記事テンプレート作成
+2. Cursorで記事ファイルを開く（ルールが自動適用）
+3. フロントマターを適切に設定
+4. 記事本文を執筆（Cursor AIが記事構成を支援）
+5. `npm run preview`でプレビュー確認
+6. 必要に応じて編集・調整
+7. `published: true`に変更して公開準備
+8. GitHubにpushして自動公開
+
+### 執筆時の注意点
+- **フロントマター**: タイトル、絵文字、トピックを適切に設定
+- **コードブロック**: 言語とファイル名を必ず指定
+- **画像**: `/images/`ディレクトリに配置してから参照
+- **プレビュー**: 執筆中は常にプレビューを確認
+- **下書き**: `published: false`で下書き状態を維持
+
+## よく使うZenn CLI コマンド一覧
+
+```bash
+# 記事作成
+npm run new:article
+
+# 本作成
+npm run new:book
+
+# プレビュー表示
+npm run preview
+
+# 記事一覧表示
+npx zenn list:articles
+
+# 本一覧表示
+npx zenn list:books
+
+# Zenn CLIバージョン確認
+npx zenn --version
+
+# ヘルプ表示
+npx zenn --help
+```
+
+## トラブルシューティング
+
+### プレビューが表示されない
+```bash
+# ポートを変更して起動
+npx zenn preview --port 3000
+```
+
+### Zenn CLIが動作しない
+```bash
+# Zenn CLIを最新版に更新
+npm install zenn-cli@latest
+
+# 依存関係を再インストール
+rm -rf node_modules package-lock.json
+npm install
+```
+
+### Node.js環境の問題
+```bash
+# mise環境の確認
+mise current
+
+# Node.js再インストール
+mise use node@20.19.2
+```
+
+### プレビューサーバーが停止しない
+```bash
+# プロセスを強制終了
+pkill -f "zenn preview"
+# または
+lsof -ti:8000 | xargs kill -9
+```
+
+## 記事公開前のチェックリスト
+
+- [ ] フロントマターが適切に設定されている
+- [ ] タイトルが魅力的で分かりやすい
+- [ ] 絵文字が適切に選択されている
+- [ ] トピックが正確に設定されている
+- [ ] コードブロックに言語とファイル名が指定されている
+- [ ] 画像が正しく表示される
+- [ ] プレビューで問題なく表示される
+- [ ] `published: true`に設定済み

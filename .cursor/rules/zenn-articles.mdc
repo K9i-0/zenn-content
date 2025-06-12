@@ -1,9 +1,8 @@
 ---
 description: "Zennの記事作成時の自動ルール適用"
-globs: ["articles/*.md"]
+globs: articles/*.md
 alwaysApply: false
 ---
-
 # Zenn記事作成ルール
 
 このルールはarticlesディレクトリ内のMarkdownファイル編集時に自動適用されます。
