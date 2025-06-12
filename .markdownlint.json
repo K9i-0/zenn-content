@@ -1,0 +1,19 @@
+{
+  "extends": "markdownlint/style/all",
+  "MD013": {
+    "line_length": 120,
+    "headings": false,
+    "tables": false,
+    "code_blocks": false
+  },
+  "MD025": false,
+  "MD033": {
+    "allowed_elements": ["img", "br", "project", "String"]
+  },
+  "MD041": false,
+  "MD036": false,
+  "MD051": false,
+  "ignores": [
+    "node_modules/**/*"
+  ]
+} 

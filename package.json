@@ -7,7 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "preview": "zenn preview",
     "new:article": "zenn new:article",
-    "new:book": "zenn new:book"
+    "new:book": "zenn new:book",
+    "lint:md": "markdownlint-cli2 \"README.md\" \"articles/*.md\" \".cursor/*.md\"",
+    "lint:md:fix": "node scripts/fix_markdown.js && npm run lint:md"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   },
   "homepage": "https://github.com/K9i-0/zenn-content#readme",
   "dependencies": {
+    "glob": "^11.0.2",
     "zenn-cli": "^0.1.144"
   }
 }

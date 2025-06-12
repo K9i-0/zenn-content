@@ -31,11 +31,13 @@ npm run new:article
 ### 3. 効率的な執筆
 
 #### Cursorの便利機能
+
 - **Cmd+K**: インライン編集でMarkdown整形
 - **Cmd+L**: チャットでAIに執筆支援を依頼
 - **Cmd+Shift+P**: コマンドパレットから各種操作
 
 #### 推奨ワークフロー
+
 1. 記事テンプレート作成 → `npm run new:article`
 2. Cursorで記事ファイルを開く
 3. フロントマター設定（タイトル、絵文字、トピック等）
@@ -49,6 +51,7 @@ npm run new:article
 ### Cursorルールの機能
 
 #### `zenn-articles.mdc`（Auto Attached）
+
 - ✅ **フロントマター**: 必須項目の自動案内
 - ✅ **記事構成**: 導入→使い方→具体例→まとめの流れ
 - ✅ **コードブロック**: 言語指定とファイル名の記述ルール
@@ -56,6 +59,7 @@ npm run new:article
 - ✅ **文章スタイル**: Zenn記事の推奨スタイル
 
 #### `zenn-cli-commands.mdc`（Always）
+
 - ✅ **Zenn CLI**: 執筆ワークフローとコマンド一覧
 - ✅ **トラブルシューティング**: よくある問題の解決方法
 - ✅ **公開前チェックリスト**: 記事公開前の確認項目
@@ -96,12 +100,14 @@ Cmd+Shift+P → "New Cursor Rule"
 ## 💡 執筆Tips
 
 ### 効率的な記事作成
+
 - **テンプレート活用**: ルールに定義された構成に従う
 - **AI支援**: 技術的な説明やコード例の生成に活用
 - **プレビュー**: 執筆中は常にプレビューを確認
 - **段階的公開**: `published: false`で下書き管理
 
 ### Cursor固有の活用法
+
 - **コンテキスト**: `@`記号でファイルやルールを参照
 - **インライン編集**: Cmd+Kで部分的な修正
 - **チャット**: 記事の構成や内容について相談
@@ -109,4 +115,4 @@ Cmd+Shift+P → "New Cursor Rule"
 
 ---
 
-**Happy Writing with Cursor! 🎉** 
+**Happy Writing with Cursor! 🎉**

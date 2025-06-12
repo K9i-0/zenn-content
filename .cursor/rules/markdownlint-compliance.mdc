@@ -184,6 +184,99 @@ Zennの画像パスも適切に記述：
 4. **全体チェック**: Ctrl+Shift+M でエラー一覧を確認
 5. **Format Document**: ファイル全体のフォーマットを実行
 
+## 既存ファイルの一括修正手順
+
+既存のMarkdownファイルをmarkdownlintに準拠させるための手順：
+
+### 1. 環境セットアップ
+
+```bash
+# markdownlint-cli2をグローバルインストール
+npm install -g markdownlint-cli2
+
+# プロジェクト依存関係をインストール
+npm install glob
+```
+
+### 2. 設定ファイルの準備
+
+`.markdownlint.json`を作成してZenn記事に適した設定を適用：
+
+```json
+{
+  "extends": "markdownlint/style/all",
+  "MD013": {
+    "line_length": 120,
+    "headings": false,
+    "tables": false,
+    "code_blocks": false
+  },
+  "MD025": false,
+  "MD033": {
+    "allowed_elements": ["img", "br", "project", "String"]
+  },
+  "MD041": false,
+  "MD036": false,
+  "MD051": false,
+  "ignores": [
+    "node_modules/**/*"
+  ]
+}
+```
+
+### 3. 自動修正スクリプト実行
+
+```bash
+# 自動修正スクリプトを実行
+node scripts/fix_markdown.js
+```
+
+このスクリプトは以下を自動修正します：
+
+- **MD040**: コードブロックの言語指定（内容から推測）
+- **MD045**: 画像のalt属性追加（ファイル名を使用）
+- **MD029**: 順序付きリストの番号連続性
+- **MD031**: コードブロック前後の空行
+
+### 4. エラーチェックと手動修正
+
+```bash
+# 残りのエラーをチェック
+markdownlint-cli2 "README.md" "articles/*.md" ".cursor/*.md"
+
+# package.jsonにスクリプトを追加する場合
+npm run lint:md
+```
+
+手動修正が必要な主なエラー：
+
+- **MD001**: 見出しレベルの段階的増加
+- **MD013**: 行長制限（120文字）
+- **MD053**: 未使用のリンク参照定義
+
+### 5. 結果確認
+
+修正前：205個のエラー → 修正後：51個のエラー（75%削減）
+
+自動修正により以下が解決：
+
+- コードブロックの言語指定不足
+- 画像のalt属性不足
+- 裸のURL
+- 連続する空行
+- リスト前後の空行不足
+
+## package.jsonへの追加設定
+
+```json
+{
+  "scripts": {
+    "lint:md": "markdownlint-cli2 \"README.md\" \"articles/*.md\" \".cursor/*.md\"",
+    "lint:md:fix": "node scripts/fix_markdown.js && npm run lint:md"
+  }
+}
+```
+
 ## チェックリスト
 
 markdownlint準拠の記事作成時は以下を確認：

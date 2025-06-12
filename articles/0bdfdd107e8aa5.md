@@ -6,19 +6,24 @@ topics: ["Flutter"]
 published: true
 ---
 # はじめに
+
 FlutterアプリでChromeやFirefoxなどのブラウザアプリを指定してURLを開く方法です。
 ※ Android、iOSにしか対応していません。
 
 # パッケージのインストール
+
 pubspec.yaml ファイルに android_intent_plus, url_launcher を追加し、flutter pub get
+
 ```yaml
 dependencies:
   android_intent_plus: <任意のバージョン>
   url_launcher: <任意のバージョン>
-```
+```text
 
 # Android用コード
+
 android_intent_plusパッケージを使います。
+
 ```dart
 Future<void> _launchBrowserAndroid(
   BrowserType browserType,
@@ -48,10 +53,12 @@ Future<void> _launchBrowserAndroid(
       return await intent.launch();
   }
 }
-```
+```text
 
 # iOS用コード
+
 url_launcherパッケージを使います。
+
 ```dart
 Future<void> _launchBrowserIOS(
   BrowserType browserType,
@@ -81,5 +88,6 @@ Future<void> _launchBrowserIOS(
 ```
 
 # まとめ
+
 全体の実装です。exampleディレクトリに利用例があります。
-https://github.com/K9i-0/multi_browser_launcher
+<https://github.com/K9i-0/multi_browser_launcher>
