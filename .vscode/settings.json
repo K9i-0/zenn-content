@@ -21,5 +21,8 @@
     "peacock.color": "3EA8FF",
     "pasteImage.basePath": "${currentFileDir}/..",
     "pasteImage.insertPattern": "${imageSyntaxPrefix}/${imageFilePath}${imageSyntaxSuffix}",
-    "pasteImage.path": "${currentFileDir}/../images"
+    "pasteImage.path": "${currentFileDir}/../images",
+    "debug.javascript.defaultRuntimeExecutable": {
+        "pwa-node": "/Users/kotahayashi/.local/share/mise/shims/node"
+    }
 }
