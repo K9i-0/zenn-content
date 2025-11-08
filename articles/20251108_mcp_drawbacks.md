@@ -1,8 +1,8 @@
 ---
 title: "MCPの3つの欠点 - よりよく使うために知っておきたいこと"
-emoji: "🔧"
-type: "tech"
-topics: ["MCP", "AI", "LLM", "Claude"]
+emoji: "🐙"
+type: "idea"
+topics: ["MCP", "AI", "LLM", "Claude", "Anthropic", "AIエージェント",]
 published: false
 ---
 
