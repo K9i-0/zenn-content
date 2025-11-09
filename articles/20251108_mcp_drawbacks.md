@@ -28,11 +28,13 @@ MCPを使う場合、ほとんどのクライアントはすべてのツール�
 
 ### 3. MCPのやり取り情報もコンテキストを圧迫する
 
-さらに厄介なのは、**MCPクライアントとエージェント間のやり取り自体がコンテキストを消費する**ということです。
+さらに厄介なのは、**MCPクライアントとエージェント間のやり取り自体がコンテキストを消費する**ということです。MCPでは、ツール呼び出しとその結果がすべてモデルのコンテキストを通過します[^6]。
 
-具体例を挙げます。Google DriveのトランスクリプトをSalesforceに転送するタスクを考えてください。2時間の会議録音を処理する場合、**完全なトランスクリプトがツール呼び出しの前後で複数回通過**します。結果として、約50,000トークンの追加処理が発生します。
+具体例を挙げます。Google DriveのトランスクリプトをSalesforceに転送するタスクを考えてください。2時間の会議録音を処理する場合、**完全なトランスクリプトがツール呼び出しの前後で複数回通過**します[^7]。結果として、約50,000トークンの追加処理が発生します。
 
-コンテキストが埋まれば、本来のタスク遂行に直接的な悪影響を及ぼします。
+コンテキストが埋まれば、本来のタスク遂行に直接的な悪影響を及ぼします。また、大規模なドキュメントや複雑なデータ構造の場合、データコピー時のエラーも発生しやすくなります[^8]。
+
+この課題への対策として、**サブエージェントを活用する**方法があります。サブエージェントは独立したコンテキストで動作し、MCPツールを選択的に割り当てられます[^9]。例えば、Google Drive操作とSalesforce操作をそれぞれ別のサブエージェントに委譲すれば、中間データがメインエージェントのコンテキストを通過せず、トークン消費を大幅に削減できる可能性があります。
 
 ## MCPは万能ではない
 
@@ -52,9 +54,18 @@ MCPの欠点を知ることは、それを**より効果的に活用するため
 
 [^5]: Anthropicの記事より："This reduces the token usage from 150,000 tokens to 2,000 tokens—a time and cost saving of 98.7%."（これにより、トークン使用量が150,000トークンから2,000トークンに削減され、時間とコストが98.7%節約されます）出典: [Anthropic: Code Execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp)
 
+[^6]: Anthropicの記事より："Most MCP clients load all tool definitions upfront directly into context, exposing them to the model using a direct tool-calling syntax."（ほとんどのMCPクライアントは、すべてのツール定義を事前にコンテキストに直接ロードし、直接的なツール呼び出し構文を使用してモデルに公開します）出典: [Anthropic: Code Execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp)
+
+[^7]: Anthropicの記事より："Every intermediate result must pass through the model. In this example, the full call transcript flows through twice. For a 2-hour sales meeting, that could mean processing an additional 50,000 tokens."（すべての中間結果はモデルを通過しなければなりません。この例では、会議の完全なトランスクリプトが2回流れます。2時間の営業会議の場合、追加で50,000トークンを処理することを意味する可能性があります）出典: [Anthropic: Code Execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp)
+
+[^8]: Anthropicの記事より："With large documents or complex data structures, models may be more likely to make mistakes when copying data between tool calls."（大規模なドキュメントや複雑なデータ構造の場合、ツール呼び出し間でデータをコピーする際にモデルがエラーを犯す可能性が高くなります）出典: [Anthropic: Code Execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp)
+
+[^9]: Claude Codeドキュメントより：「各サブエージェントは独立したコンテキストで動作し、メイン会話の汚染を防ぎ、高レベルの目標に焦点を当てた状態を保ちます」また「サブエージェントは設定されたMCPサーバーからのMCPツールにアクセスできます」出典: [Claude Code: サブエージェント](https://code.claude.com/docs/ja/sub-agents)
+
 ---
 
 ## 参考
 
 - [Cloudflare: Code Mode](https://blog.cloudflare.com/code-mode/) - MCPの限界を指摘し、コード実行による代替案を提示
 - [Anthropic: Code Execution with MCP](https://www.anthropic.com/engineering/code-execution-with-mcp) - MCPのコンテキスト課題と設計について詳しく説明
+- [Claude Code: サブエージェント](https://code.claude.com/docs/ja/sub-agents) - MCPタスクをサブエージェントに委譲してコンテキストを分離する方法
