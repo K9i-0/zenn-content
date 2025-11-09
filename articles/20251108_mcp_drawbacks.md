@@ -3,7 +3,7 @@ title: "MCPの3つの欠点 - よりよく使うために知っておきたい�
 emoji: "🐙"
 type: "idea"
 topics: ["MCP", "AI", "Claude", "Anthropic", "AIエージェント",]
-published: false
+published: true
 ---
 
 MCPは強力で便利なツールですが、他のツールと同様に、設計上の制限と課題があります。これらを理解することで、MCPを**より効果的に活用できる**ようになります。
