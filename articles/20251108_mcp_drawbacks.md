@@ -12,7 +12,7 @@ MCPは強力で便利なツールですが、他のツールと同様に、設�
 
 ## MCPの3つの欠点
 
-![](/images/mcp_drawbacks_summary.png)
+![](/images/mcp_drawbacks_summary.png =300x)
 
 ### 1. AIエージェントは必ずしもMCPが得意でない
 
