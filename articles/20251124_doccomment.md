@@ -69,11 +69,11 @@ class CompanyDetailScreen extends StatelessWidget {
 
 ### Agentic Search
 
-Claude Codeなどのツールが採用する**Agentic Search**は、AIエージェントがgrepやlsなどの開発ツールを使って動的に複数ラウンドの検索を実行するアプローチです[^1]。事前にインデックスを作成するRAG（Retrieval-Augmented Generation）とは異なり、リアルタイムでファイルシステムを探索し、常に最新のコードを検索対象とするのが特徴です[^2]。
+Claude Codeなどのツールが採用する**Agentic Search**は、AIエージェントがgrepやlsなどの開発ツールを使って動的に複数ラウンドの検索を実行するアプローチです[^1]。事前にインデックスを作成するRAG（Retrieval-Augmented Generation）とは異なり、リアルタイムでファイルシステムを探索し、常に最新のコードを検索対象とするのが特徴です。
 
 このAgentic Search機能は、Claude Codeに限らず多くのコーディング用AIエージェントに標準搭載されています。RAGと併用するHybridアプローチを採用するツールもありますが、いずれにせよAgentic Searchは現代のAIコーディングツールにおける基本機能だと思います。
 
-私が実務で使っていて感じるのは、このアプローチでは**DocCommentが「検索可能なメタデータ」として非常に効果的に機能する**ということです[^3]。例えば、先ほどの例のように`/// UI-05 会社詳細画面`とDocCommentに書いておくと、「会社詳細画面」という日本語や「UI-05」という番号で確実にgrep検索がヒットします。
+私が実務で使っていて感じるのは、このアプローチでは**DocCommentが「検索可能なメタデータ」として非常に効果的に機能する**ということです[^2]。例えば、先ほどの例のように`/// UI-05 会社詳細画面`とDocCommentに書いておくと、「会社詳細画面」という日本語や「UI-05」という番号で確実にgrep検索がヒットします。
 
 ```dart
 /// UI-05 会社詳細画面
@@ -117,6 +117,4 @@ AIファーストなプロジェクトを整備する最初の一歩として参
 
 [^1]: Anthropicの公式ブログより：Claude Agent SDKは従来の開発ツール（grep、ls、readなど）を使って動的に複数ラウンドの検索を実行する「Agentic Search」アプローチを採用しています。出典: [Building agents with the Claude Agent SDK](https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk)
 
-[^2]: Anthropicのエンジニアによると、Agentic Searchの主な利点として、事前のインデックス作成が不要（ゼロセットアップ）、新規ファイルが即座に検索可能、常に最新のファイルシステムを参照するため情報鮮度が100%保証される点が挙げられます。内部ベンチマークではripgrepを使用することで100K行のコードベースを数ミリ秒で検索できるとしています。
-
-[^3]: DocCommentに記載された画面名やUI番号などのキーワードがgrep検索で確実にヒットするので、ユビキタス言語を使った自然な指示が可能になります。仕様書との紐付けも即座に行えるのが便利です。
+[^2]: DocCommentに記載された画面名やUI番号などのキーワードがgrep検索で確実にヒットするので、ユビキタス言語を使った自然な指示が可能になります。仕様書との紐付けも即座に行えるのが便利です。
