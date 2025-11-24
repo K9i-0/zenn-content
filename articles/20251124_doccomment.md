@@ -1,5 +1,5 @@
 ---
-title: "DocCommentにユビキタス言語を書くだけのシンプルなアプローチが結構AIファーストだと思う理由"
+title: "AIファーストなドキュメント戦略 - DocCommentにユビキタス言語を書くだけのシンプルなアプローチ"
 emoji: "🐙"
 type: "tech"
 topics: ["AI", "claudecode", "AIエージェント", "SDD", "documentation",]
