@@ -69,6 +69,23 @@ class CompanyDetailScreen extends StatelessWidget {
 
 ### Agentic Search
 
+Claude Codeなどのツールが採用する**Agentic Search**は、AIエージェントがgrepやlsなどの開発ツールを使って動的に複数ラウンドの検索を実行するアプローチです[^1]。事前にインデックスを作成するRAG（Retrieval-Augmented Generation）とは異なり、リアルタイムでファイルシステムを探索し、常に最新のコードを検索対象とします[^2]。
+
+このAgentic Search機能は、Claude Codeに限らず多くのコーディング用AIエージェントに標準搭載されています。RAGと併用するHybridアプローチを採用するツールもありますが、いずれにせよAgentic Searchは現代のAIコーディングツールにおける基本機能と言えます。
+
+このアプローチでは、**DocCommentが「検索可能なメタデータ」として非常に効果的に機能**します[^3]。例えば、先ほどの例のように`/// UI-05 会社詳細画面`とDocCommentに書いておくと、「会社詳細画面」という日本語や「UI-05」という番号で確実にgrep検索がヒットします。
+
+```dart
+/// UI-05 会社詳細画面
+class CompanyDetailScreen extends StatelessWidget {
+```
+
+クラス名が`CompanyDetailScreen`であっても、日本語の「会社詳細画面」でも検索可能になるため、ユビキタス言語でそのままAIに指示を出せます。また、UI番号があることで仕様書との紐付けも即座に行えます。
+
+Agentic Searchは**完全一致の文字列検索**に強みがあるため、DocCommentに明確なキーワード（画面名、UI番号、機能名など）を記述しておくことで、AIエージェントは確実に目的のコードを見つけられます。表記揺れには注意が必要ですが、正規表現での対応も可能です。
+
+このように、DocCommentにユビキタス言語を書くだけで、Agentic Searchを採用したツールにとって最適な検索対象となり、AIファーストな開発が実現できます。
+
 ### LLMの学習データ
 
 
@@ -78,3 +95,15 @@ class CompanyDetailScreen extends StatelessWidget {
 
 DocCommentにユビキタス言語を書くシンプルなアプローチの紹介でした。
 AIファーストなプロジェクトを整備する最初の一歩として参考になれば幸いです。
+
+[^1]: Anthropicの公式ブログより：Claude Agent SDKは従来の開発ツール（grep、ls、readなど）を使って動的に複数ラウンドの検索を実行する「Agentic Search」アプローチを採用しています。出典: [Building agents with the Claude Agent SDK](https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk)
+
+[^2]: Anthropicのエンジニアによると、Agentic Searchの主な利点として、事前のインデックス作成が不要（ゼロセットアップ）、新規ファイルが即座に検索可能、常に最新のファイルシステムを参照するため情報鮮度が100%保証される点が挙げられます。内部ベンチマークではripgrepを使用することで100K行のコードベースを数ミリ秒で検索できるとしています。
+
+[^3]: Claude Codeなどのツールでは、DocCommentに記載された画面名やUI番号などのキーワードがgrep検索で確実にヒットするため、ユビキタス言語を使った自然な指示が可能になります。これにより、仕様書との紐付けも即座に行えます。
+
+---
+
+## 参考
+
+- [Building agents with the Claude Agent SDK](https://www.anthropic.com/engineering/building-agents-with-the-claude-agent-sdk) - Anthropic公式：Agentic Searchのアプローチと設計思想について
