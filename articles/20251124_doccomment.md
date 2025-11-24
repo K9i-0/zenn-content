@@ -2,8 +2,8 @@
 title: "AIファーストなドキュメント戦略 - DocCommentにユビキタス言語を書くだけのシンプルなアプローチ"
 emoji: "🐙"
 type: "tech"
-topics: ["AI", "claudecode", "AIエージェント", "SDD", "documentation",]
-published: false
+topics: ["AI", "claudecode", "AIエージェント", "SDD", "flutter",]
+published: true
 ---
 
 AIコーディング、特にClaude CodeやCursorのようなツールの普及に伴い、「AIにいかに正確なコンテキストを与えるか」が開発者の最大の関心事になっています。
