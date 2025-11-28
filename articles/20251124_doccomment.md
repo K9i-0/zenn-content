@@ -3,6 +3,7 @@ title: "AIファーストなドキュメント戦略 - DocCommentにユビキタ
 emoji: "🐙"
 type: "tech"
 topics: ["AI", "claudecode", "AIエージェント", "SDD", "flutter",]
+publication_name: yumemi_inc
 published: true
 ---
 

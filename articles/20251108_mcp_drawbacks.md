@@ -3,6 +3,7 @@ title: "MCPの3つの欠点 - よりよく使うために知っておきたい�
 emoji: "🐙"
 type: "idea"
 topics: ["MCP", "AI", "Claude", "Anthropic", "AIエージェント",]
+publication_name: yumemi_inc
 published: true
 ---
 
