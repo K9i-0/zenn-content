@@ -1,8 +1,8 @@
 ---
-title: "FlutterアプリをAIで操作する - mobile MCP・maestro MCPの仕組みと活用法"
+title: "mobile MCP vs maestro MCP - Flutterで両方試してわかった選び方"
 emoji: "🤖"
 type: "tech"
-topics: ["mcp", "flutter", "ai", "claude", "test"]
+topics: ["mcp", "flutter", "maestro", "e2e", "ai"]
 published: false
 ---
 
@@ -61,42 +61,21 @@ https://docs.maestro.dev/getting-started/maestro-mcp
 
 maestro MCPは、E2EテストツールであるMaestroの拡張として提供されているMCPです。Maestro CLIの機能をMCP経由で利用でき、**ID/テキスト指定でのタップ操作**が可能です。
 
-### 設計思想の違い
-
-両者のアプローチを整理すると、以下のような違いがあります。
-
-**mobile MCP**
-- 汎用的なモバイル自動化を目指した設計
-- プラットフォームのアクセシビリティAPIを直接活用
-- 特定のテストフレームワークに依存しない
-
-**maestro MCP**
-- 既存のE2Eテストツール（Maestro）のMCPラッパー
-- Maestro CLIの機能をそのまま活用可能
-- YAMLシナリオとの相互運用が前提
-
 ### 私がmaestro MCPを選んだ理由
 
 両方試してみた結果、私の環境（Flutter + iOS Simulator）ではmaestro MCPの方が使いやすいと感じました。
 
 | 観点 | mobile MCP | maestro MCP |
 |------|:----------:|:-----------:|
+| 設計思想 | 汎用モバイル自動化 | E2Eテストツールの拡張 |
 | タップ操作 | 座標指定のみ | ID/テキスト指定 |
 | identifier検出 | 一部欠落あり | 安定して検出 |
-| デバイス操作 | HOME/BACK対応 | BACKのみ |
-| E2Eシナリオ連携 | 単独動作 | Maestroフローと共通化可能 |
-
-#### 機能比較（実機検証結果）
-
-| 機能 | maestro MCP | mobile MCP |
-|------|:-----------:|:----------:|
-| ID/テキスト指定タップ | ✅ | ❌ 座標指定のみ |
-| デバイスボタン（HOME） | ❌ | ✅ |
-| アプリinstall/uninstall | ❌ | ✅ |
-| YAMLフロー実行 | ✅ | ❌ |
+| デバイス操作（HOME等） | ✅ | ❌ |
+| アプリinstall/uninstall | ✅ | ❌ |
+| YAMLシナリオ連携 | ❌ | ✅ |
 
 :::message
-プロジェクトの特性やプラットフォームによって、mobile MCPの方が適しているケースもあるかと思います。デバイス管理系の操作が必要な場合はmobile MCPが有利です。両ツールの詳細な機能差はバージョンアップにより変化する可能性があるため、最新情報は各公式ドキュメントをご確認ください。
+デバイス管理系の操作が必要な場合はmobile MCPが有利です。両ツールの詳細な機能差はバージョンアップにより変化する可能性があるため、最新情報は各公式ドキュメントをご確認ください。
 :::
 
 #### 操作効率の違い
@@ -163,60 +142,8 @@ Semanticsを追加する際は、スクリーンリーダーユーザーの体�
 理想的には、アクセシビリティツリーで十分な情報を提供できていれば、スクリーンリーダーでも使いやすいアプリになります。E2Eテストとアクセシビリティは対立するものではなく、両立できるものだと考えています。
 :::
 
-:::details FABボタンのSemantics実装
-```dart
-// todo_list_screen.dart
-floatingActionButton: Semantics(
-  identifier: 'todo-fab-add',
-  label: 'Add new todo',
-  child: FloatingActionButton.extended(
-    onPressed: () => _navigateToEdit(context),
-    icon: const Icon(Icons.add_rounded),
-    label: const Text('New Task'),
-  ),
-),
-```
-:::
-
-:::details IconButtonのSemantics実装
-```dart
-// todo_list_screen.dart
-Semantics(
-  identifier: 'settings-button',
-  label: 'Settings',
-  child: IconButton(
-    icon: Icon(Icons.settings_outlined),
-    onPressed: () {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const SettingsScreen()),
-      );
-    },
-    tooltip: 'Settings',
-  ),
-),
-```
-:::
-
-:::details カテゴリチップのSemantics実装（動的ID生成）
-```dart
-// category_chip.dart
-Semantics(
-  identifier: 'category-chip-${category.id}',  // 動的にIDを生成
-  label: 'Filter by ${category.name}',
-  child: GestureDetector(
-    onTap: widget.onTap,
-    child: AnimatedContainer(
-      // ... チップのUI実装
-    ),
-  ),
-),
-```
-:::
-
-:::message
-参考リポジトリでは、全てのウィジェットにSemantics識別子を設定しています。実装例は以下をご覧ください：
+その他の実装例（IconButton、動的ID生成など）は参考リポジトリをご覧ください：
 https://github.com/K9i-0/flutter_e2e_investigation/tree/main/lib/features/todo/ui
-:::
 
 ### maestro MCPの主要機能
 
@@ -290,12 +217,6 @@ MCPとYAMLシナリオは、双方向に活用できます。
 
 mobile-mcpなどの他のMCPは「その場限りの操作」に留まりますが、maestro MCPはE2Eテスト資産との循環を生み出せます。機能実装時にMCPで動作確認し、確認できた操作をYAMLに落とし込む。このサイクルこそが、maestro MCPを選ぶ最大の理由だと考えています。
 
-### セットアップ
-
-maestro MCPを使い始めるには、まずMaestro CLIのインストールが必要です。詳細は公式ドキュメントを参照してください。
-
-https://docs.maestro.dev/getting-started/maestro-mcp
-
 ## 現時点での課題
 
 正直に言うと、MCPでのモバイルアプリ操作はまだ発展途上だと感じています。私が試した中で感じた課題を共有しておきます。
@@ -314,9 +235,8 @@ mobile MCP、maestro MCPともにまだ活発に開発中のツールです。�
 
 ### identifier検出の違い
 
-実機検証の結果、mobile MCPではFlutterのButton系ウィジェット（FloatingActionButton, IconButton等）に設定した`Semantics.identifier`が検出されないケースがありました。一方、maestro MCPでは同じ要素の`resource-id`が安定して検出されました。
+iOSシミュレーターでの検証の結果、mobile MCPではFlutterのButton系ウィジェット（FloatingActionButton, IconButton等）に設定した`Semantics.identifier`が検出されないケースがありました。一方、maestro MCPでは同じ要素の`resource-id`が安定して検出されました。
 
-:::details 要素取得の出力比較（実機検証結果）
 **Maestro MCP (inspect_view_hierarchy)**
 ```csv
 36,11,"[251,768][386,824]","accessibilityText=Add new todo; resource-id=todo-fab-add; enabled=true",35
@@ -330,7 +250,6 @@ mobile MCP、maestro MCPともにまだ活発に開発中のツールです。�
 ```
 
 → Mobile MCPでは `identifier` (resource-id) が出力されていない
-:::
 
 これはFlutter固有の問題というより、mobile MCPがiOSのアクセシビリティAPIから特定の属性を取得する際の制限と考えられます。座標指定タップを行う場合はこの制限の影響を受けませんが、要素の特定にidentifierを活用したい場合はmaestro MCPの方が適しています。
 
@@ -344,9 +263,10 @@ Boris氏の言葉にあるように、AIに検証方法を与えることでフ�
 
 ### 今日からできる最初の一歩
 
-1. **参考リポジトリを動かしてみる** - Semanticsの実装例とMaestroシナリオのサンプルを確認
-2. **自分のアプリにSemantics IDを設定する** - まずは主要な画面から始める
-3. **maestro MCPでAIに操作させてみる** - Claude CodeやCursorで試す
+1. **Maestro CLIをインストールする** - [公式ドキュメント](https://docs.maestro.dev/getting-started/maestro-mcp)を参照
+2. **参考リポジトリを動かしてみる** - Semanticsの実装例とMaestroシナリオのサンプルを確認
+3. **自分のアプリにSemantics IDを設定する** - まずは主要な画面から始める
+4. **maestro MCPでAIに操作させてみる** - Claude CodeやCursorで試す
 
 **参考リポジトリ**
 https://github.com/K9i-0/flutter_e2e_investigation
