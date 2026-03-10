@@ -8,36 +8,41 @@ title: "Reddit / Hacker News 投稿用テンプレート"
 
 ## Reddit (r/ClaudeAI)
 
-**Title:** I built CC Pocket — a mobile app to approve tool calls and control Claude Code sessions from your phone
+**Title:** I built a mobile app to approve tool calls and manage Claude Code sessions from my phone
 
 **Body:**
 
-I got tired of walking to my Mac every time Claude Code needed approval for a tool call, so I built **CC Pocket** — a mobile app that lets you control Claude Code (and Codex) sessions remotely.
+Anyone else running Claude Code for side projects and getting annoyed at having to walk to their Mac every time it asks for permission? I was literally getting up from the couch every 5 minutes just to hit "approve."
 
-**What it does:**
+So I built **CC Pocket** — a mobile app for controlling Claude Code (and Codex) from your phone.
 
-- **One-tap approvals** from the session list — no need to open each session
-- **Start new sessions** from your phone (project, model, permission mode, even git worktree creation)
-- **Rich prompt input** with slash command completion, @file mentions, bullet list assist, and prompt history
-- **Diff viewer** with image comparison (side-by-side, slider, overlay)
-- **Named sessions** so you can actually find things later
-- **Push notifications** when the agent needs your attention
+The thing I'm most proud of: **approvals show up right on the session list**, so you can just scroll and tap without opening each session. If you're running multiple agents in parallel, you can blast through them.
 
-**How it works:**
+Other stuff it does:
 
-A lightweight bridge server runs on your Mac (`npx @ccpocket/bridge@latest`) and connects to Claude Code / Codex CLI via stdio. Your phone connects to the bridge via WebSocket over Tailscale or local Wi-Fi.
+- Start new sessions from your phone — pick a project, model, permission mode, even create a git worktree
+- Rich prompt input with `/` command completion, `@` file mentions, and bullet list formatting
+- Diff viewer with image comparison (side-by-side, slider, overlay)
+- Name your sessions so you can actually find them later
+- Push notifications when the agent needs you
+
+**How it connects:**
+
+A small bridge server runs on your Mac and talks to Claude Code via the SDK. Your phone connects over WebSocket (Tailscale or same Wi-Fi).
 
 ```
-Phone ←WebSocket→ Bridge Server (Mac) ←stdio→ Claude Code CLI
+Phone ←WebSocket→ Bridge (Mac) ←stdio→ Claude Code / Codex
 ```
+
+Setup is just `npx @ccpocket/bridge@latest`, scan a QR code, and you're in.
 
 **Links:**
 
-- iOS: https://apps.apple.com/us/app/cc-pocket-dev-agent-remote/id6759188790
-- Android: https://play.google.com/store/apps/details?id=com.k9i.ccpocket
-- GitHub (open source): https://github.com/K9i-0/ccpocket
+- [App Store (iOS)](https://apps.apple.com/us/app/cc-pocket-dev-agent-remote/id6759188790)
+- [Google Play (Android)](https://play.google.com/store/apps/details?id=com.k9i.ccpocket)
+- [GitHub (open source)](https://github.com/K9i-0/ccpocket)
 
-Built with Flutter + TypeScript. Would love feedback!
+It's open source (Flutter + TypeScript). Happy to answer questions or hear feedback!
 
 <!-- ============================================ -->
 <!-- Hacker News (Show HN) 投稿用 -->
@@ -45,18 +50,16 @@ Built with Flutter + TypeScript. Would love feedback!
 
 ## Hacker News (Show HN)
 
-**Title:** Show HN: CC Pocket – Control Claude Code and Codex from your phone
+**Title:** Show HN: CC Pocket – Mobile client for Claude Code and Codex via WebSocket bridge
 
 **URL:** https://github.com/K9i-0/ccpocket
 
 **Text (optional — HN では URL 投稿の場合 text は省略可。text を入れる場合は以下):**
 
-CC Pocket is a mobile app (iOS/Android) for remotely controlling Claude Code and OpenAI Codex sessions running on your Mac.
+CC Pocket is a mobile app (iOS/Android) for remotely controlling Claude Code and Codex CLI sessions on your Mac.
 
-A bridge server on your Mac (`npx @ccpocket/bridge@latest`) connects to the CLI tools via stdio and exposes a WebSocket API. The mobile app connects over Tailscale or local Wi-Fi.
+Architecture: a bridge server on the Mac (`npx @ccpocket/bridge@latest`) wraps the Claude Code SDK and Codex CLI via stdio, exposing a WebSocket API. The phone connects over Tailscale or local Wi-Fi.
 
-Key features: one-tap tool approvals from session list, start new sessions from phone (with git worktree support), rich prompt input with file mentions and slash commands, diff viewer with image comparison, push notifications.
+The main use case is approving tool calls without being at the keyboard. Approvals are surfaced directly on the session list so you can handle multiple agents quickly. You can also start new sessions (with git worktree creation), write prompts with file mention and slash command completion, and review diffs including image comparisons.
 
-Built with Flutter (mobile) and TypeScript (bridge). Open source under MIT.
-
-GitHub: https://github.com/K9i-0/ccpocket
+Flutter (Dart) on the client, TypeScript on the bridge. MIT licensed.
