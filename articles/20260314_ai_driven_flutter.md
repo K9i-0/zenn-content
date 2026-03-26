@@ -86,12 +86,12 @@ AI駆動でモバイルアプリ作る場合、現時点では他人向けには
 
 ほぼVibe Codingでも、こういうUIが作りたい！みたいなときに経験があるフレームワークだと適切なクラス名での指示ができてできあがるものの精度が上がる印象です
 
-## サーバー
+### サーバー
 
 特にこだわりなかったので無難にTypeScript x npm
 
 - そもそもClaude SDKとかがJS/TS
 - ccusageみたいに、npxでサーバー起動するのが無難に便利そうだと考えていた
 
-Claude CodeのセッションはClaude SDK、Codexのセッションcodex app-serverで実現しています。
+Claude CodeのセッションはClaude SDK、Codexのセッションはcodex app-serverで実現しています。
 Codex SDKもあるけどこちらはなぜか承認操作がない(どうして)
