@@ -27,6 +27,8 @@ Flutter 専用の MCP としては公式が出している [Dart and Flutter MCP
 
 https://k9i-0.github.io/flutter_deck_template/fluttergakkai_9/#/title
 
+実はこのスライドを flutter_deck で作った時に、Marionette MCP で狙ったスライドへ遷移させるのが面倒だったのが `call_custom_extension` を [提案するきっかけ](https://github.com/leancodepl/marionette_mcp/issues/27)になりました。Issue を立ててプロトタイプを実装したところ、ベースに採用してもらえて[正式リリース](https://github.com/leancodepl/marionette_mcp/pull/30)に至っています。
+
 ## これまでのつらみ
 
 まずは `call_custom_extension` 登場以前に大変だったシナリオを紹介します。
