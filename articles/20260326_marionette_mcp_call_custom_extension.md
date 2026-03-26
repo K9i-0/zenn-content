@@ -107,7 +107,7 @@ registerMarionetteExtension(
 
 ```dart
 void main() {
-  if (kDebugMode) {
+  if (kDebugMode && !kIsWeb) {
     MarionetteBinding.ensureInitialized();
     registerMyExtensions(); // カスタムエクステンションの登録
   } else {
@@ -123,9 +123,9 @@ void main() {
 
 ここからは、僕が個人開発している [CC Pocket](https://github.com/K9i-0/ccpocket) での活用事例を紹介します。
 
-CC Pocket は Claude Code / Codex のセッションをモバイルから操作できるアプリです。
+CC Pocket は mac 上の Claude Code / Codex をスマホから操作できるアプリです。
 
-{CC Pocket の補足があれば記入}
+AI駆動開発を効率的に行うための検証も兼ねているので、MCP などを積極的に活用しています。
 
 ### 登録しているエクステンション
 
@@ -187,13 +187,13 @@ registerMarionetteExtension(
 流れはこんな感じです。
 
 1. `ccpocket.setTheme` でライトテーマに設定
-2. `ccpocket.setLocale` で言語を設定（en / ja）
+2. `ccpocket.setLocale` で言語を設定
 3. `ccpocket.navigateToStoreScenario` でシナリオに遷移
 4. 描画完了を待って `xcrun simctl io booted screenshot` でスクショ撮影
 5. `ccpocket.popToRoot` でホーム画面に戻す
 6. 3-5 を全シナリオ分繰り返す
 
-以前は手動で各画面に遷移してスクショを撮っていましたが、今はコマンド一発で 8 シナリオ × 複数言語分のスクショが自動生成されます。
+以前は手動で各画面に遷移してスクショを撮っていましたが、今はコマンド一発で全シナリオ分のスクショが自動生成されます。
 
 ## LLM にうまく使ってもらうための Tips
 
@@ -203,34 +203,12 @@ registerMarionetteExtension(
 
 `goToPage` のような汎用的な名前よりも、`ccpocket.navigateToStoreScenario` のようにアプリ名をプレフィックスにつけると、AI が何のエクステンションなのか迷わなくなります。
 
-### description をしっかり書く
+### スキルのプロンプトにエクステンションを明記する
 
-AI は `list_custom_extensions` で取得した `description` を頼りに使い方を判断します。取りうる値や引数の例を含めると精度が上がります。
+`description` をしっかり書くことも大事ですが、それ以上に効果的なのは Claude Code のスキル等のプロンプトに「このタスクではこのエクステンションを使え」と明記することです。
 
-```dart
-// ❌ 雑な description
-description: 'Set theme.',
-
-// ✅ 具体的な description
-description: 'Switch the app theme. Values: "light", "dark", "system".',
-```
-
-### エラーメッセージを具体的に
-
-`invalidParams` や `error` で返すメッセージが具体的だと、AI が自力でリトライできます。
-
-```dart
-// ❌
-return MarionetteExtensionResult.invalidParams('Invalid parameter');
-
-// ✅
-return MarionetteExtensionResult.invalidParams(
-  'Missing required parameter: theme (light/dark/system)',
-);
-```
-
-{他に Tips があれば記入}
+ちなみに `description` 自体は AI にコードを書かせればいい感じに書いてくれるので、人間が頑張るポイントはそこではなかったりします。
 
 ## まとめ
 
-{人間が記入}
+試してみてね☝️
