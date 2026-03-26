@@ -3,7 +3,8 @@ title: "Marionette MCP の call_custom_extension で、Store 画像撮影や UI 
 emoji: "🐙"
 type: "tech"
 topics: ["Flutter", "MCP", "claudecode", "aiagent", "dart"]
-published: false
+publication_name: yumemi_inc
+published: true
 ---
 
 ## はじめに
