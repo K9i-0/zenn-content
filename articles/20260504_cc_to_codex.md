@@ -2,7 +2,7 @@
 title: "Claude CodeユーザーのためのCodex入門"
 emoji: "🐙"
 type: "tech"
-topics: ["codex", "claudecode", "aiagent"]
+topics: ["codex", "claudecode", "aiagent", "ai", "chatgpt"]
 published: false
 ---
 
