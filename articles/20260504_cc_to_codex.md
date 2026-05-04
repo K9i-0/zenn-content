@@ -49,7 +49,7 @@ https://developers.openai.com/codex/app/settings
 一応ChatGPTの無料アカウントでもCodexは使えますが、本格的に使うなら3000円のPlus、16800円もしくは30000円のProを検討するのがよさそうです。
 ProはPlusにくらべCodexの利用量が増えて、16800円なら5倍（期間限定で10倍）、30000円なら20倍になります。
 
-https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan
+https://chatgpt.com/ja-JP/pricing/
 
 #### PlusとProの使い分け
 
@@ -69,14 +69,14 @@ Permissionモードに最も近い項目
 - Untrusted: 既知の安全な読み取り系コマンドは自動で実行し、状態を変更するコマンドや外部実行につながるコマンドでは確認する
 - On Request: workspace内の読み取り・編集・コマンド実行は自動で行い、workspace外の編集やネットワークアクセスなどで確認する
 - On Failure: コマンドが失敗したときに確認するモード（現在は非推奨。対話的に使うならOn Request、非対話実行ならNever Askが推奨）
-- Never Ask: 承認プロンプトを出さず、設定されたsandboxの制約内で自動実行する
+- Never Ask: 承認プロンプトを出さず、設定されたsandboxの制約内で自動実行する（後述の.rulesでdecisionをpromptにした場合も失敗になる）
 
 https://developers.openai.com/codex/agent-approvals-security
 
 #### plan
 
 Claude Codeでいうplan modeは、Codexだとapprovalとは独立してon/offできます
-CodexだとAIがユーザーに複数択で質問するAskUserToolはplan中しか有効じゃなかったりします
+CodexだとAIがユーザーに複数択で質問するAskUserToolはplan中しか有効じゃなかったりします（質問してと依頼しても選択UIがでないのはこの影響）
 
 #### reviewer
 
@@ -91,6 +91,8 @@ Claude CodeのPermissionモードには含まれない概念ですが、Codexで
 
 長々と書きましたが、Codex Appだとこれらが簡単に丸められています
 approval/reviewer/sandboxはデフォルト権限/自動レビュー/フルアクセスの3つにまとめられ、追加でplanのon/offがトグルできます
+
+![Codex Appモード](/images/SCR-20260504-nyqd.png =400x)
 
 ### 設定ファイルについて
 
